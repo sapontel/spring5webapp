@@ -26,21 +26,8 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Author eric    = new Author("Eric", "Evans");
-        Book   newBok1 = new Book("Domain Drive Design", "123123");
-        eric.getBooks().add(newBok1);
-        newBok1.getAuthors().add(eric);
 
-        authorRepository.save(eric);
-        bookRepository.save(newBok1);
-
-        Author rod     = new Author("Rod", "Johnson");
-        Book   newBok2 = new Book("J2EE Development without EJB", "2341341234");
-        rod.getBooks().add(newBok2);
-        newBok2.getAuthors().add(rod);
-
-        authorRepository.save(rod);
-        bookRepository.save(newBok2);
+        System.out.println("Started in BootStrap");
 
         Publisher publisher = new Publisher();
         publisher.setCity("St Petersburg");
@@ -49,9 +36,31 @@ public class BootStrapData implements CommandLineRunner {
 
         publisherRepository.save(publisher);
 
-        System.out.println("Started in BootStrap");
+        Author eric    = new Author("Eric", "Evans");
+        Book   newBok1 = new Book("Domain Drive Design", "123123");
+        eric.getBooks().add(newBok1);
+        newBok1.getAuthors().add(eric);
+        newBok1.setPublisher(publisher);
+
+        authorRepository.save(eric);
+        bookRepository.save(newBok1);
+
+        Author rod     = new Author("Rod", "Johnson");
+        Book   newBok2 = new Book("J2EE Development without EJB", "2341341234");
+        rod.getBooks().add(newBok2);
+        newBok2.getAuthors().add(rod);
+        newBok2.setPublisher(publisher);
+
+        authorRepository.save(rod);
+        bookRepository.save(newBok2);
+
+        publisher.getBooks().add(newBok1);
+        publisher.getBooks().add(newBok2);
+
+        publisherRepository.save(publisher);
+
         System.out.println("Number of Books: " + bookRepository.count());
-        System.out.println("Publisher count: " + publisherRepository.count());
+        System.out.println("Publisher number of books: " + publisher.getBooks().size());
 
 
     }
